@@ -19,8 +19,8 @@ public class PostBodyDemoRequestProcessor implements RequestProcessor {
     public void execute(HttpRequest httpRequest, OutputStream output) throws IOException {
         Product product = gson.fromJson(httpRequest.getBody(), Product.class);
         System.out.println(product);
-
-        String response = "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n<html><body></body></html>";
+        String body = gson.toJson(product);
+        String response = "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n<html><body></body></html>" + body;
         output.write(response.getBytes(StandardCharsets.UTF_8));
     }
 }
